@@ -1,5 +1,7 @@
 require_relative "ground_floor.rb"
+include GroundFloor
 
+require "io/console"
 
 ## Main Program Loop
 loop do
@@ -40,18 +42,26 @@ loop do
         # Set health to 10
         # Set doors unlocked to door_hash = {first_door: 0 ect}
         # Set enimies defeated enemy_hash = {stuffed_wolf: 0 ect}
-        puts "You have just finished college and are taking you first assignment as a detective."
-        puts "Your first assignment is to investigate the dissapearance of the Dudley family."
-        puts "The family lived in a large manor several km's in the Berkley forest."
-        puts "Senior detective, Mel Dyer, has instructed you to vist their residence to search for clues."
+        File.foreach("descriptions/introduction.txt") { |line| puts line }
+
+        continue_story 
+
+        File.foreach("descriptions/front_gate.txt") { |line| puts line }
+
+        continue_story 
+
+        GroundFloor.main_hall
+
     end
 
     def save_game
         puts "You selected save game."
+        GroundFloor.sayhi("Justin")
     end
 
     def load_game
         puts "You selected load game."
+        GroundFloor.saybye("Justin")
     end
 
     def help_game
@@ -61,7 +71,15 @@ loop do
     def exit_game
         exit
     end
-
+                                                                                           
+    def continue_story    
+             
+        puts " "                                                                                                      
+        print "press any key to continue..."                                                                                                    
+        STDIN.getch                                                                                                              
+        print "            \r" # extra space to overwrite in case next sentence is short    
+        system "clear"                                                                                                          
+    end 
 
     #Start the application by calling main_menu method
     main_menu
