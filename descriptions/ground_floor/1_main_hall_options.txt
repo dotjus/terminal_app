@@ -1,0 +1,4 @@
+Move options;
+(1). left door	(2). second left door	(3). right door
+Examine options;
+(f)ire place	(w)alls	(wo)oden plaque
