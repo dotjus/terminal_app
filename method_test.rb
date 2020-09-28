@@ -1,17 +1,19 @@
 
 require_relative "character.rb"
 
-current_room = "1_main_hall"
-
 player = Hero.new("Justin", "Main Hall")
 monster = Monster.new("Wolf", "Sitting Room")
 
 fight_mode = false
 
-def room_display(current_room, player, monster)
+def main_hall(player, monster)
+    ## Clear screen
+    system "clear" 
 
-    File.foreach("descriptions/ground_floor/" + current_room  + ".txt") { |line| puts line } # Print title and description
+    ## Print title & description
+    File.foreach("descriptions/ground_floor/1_main_hall.txt") { |line| puts line } # Print title and description
 
+    ## Checks for monster
     if player.location == monster.location
         puts "YES MONSTER"
         fight_mode = true
@@ -19,18 +21,93 @@ def room_display(current_room, player, monster)
         puts "NO MONSTER"
     end
 
-    File.foreach("descriptions/ground_floor/" + current_room  + "_options.txt") { |line| puts line } # Print title and description
+    ## Prints user input options for this room
+    File.foreach("descriptions/ground_floor/1_main_hall_options.txt") { |line| puts line } # Print title and description
 
+    ## Calls user input
+    main_hall_options(player, monster)
+end
+
+def main_hall_options(player, monster)
+    ## Gets users input and calls related method
     user_input = gets.chomp.downcase
-
     case user_input 
+    
+    ## Numbers call different room methods
     when "1" 
-        puts "kitchen"
+        dinning_hall(player, monster)
+    when "2" 
+        closet
+    when "3"
+        sitting_room
+
+    ## letters print extra descriptive text then repeat method
+    when "f"
+        puts "the fire is warm and inviting."  
+        main_hall_options(player, monster)        
+         
+    when "w"
+        puts "nice walls."
+        main_hall_options(player, monster)
+
+    when "wo"
+        puts "a staunch looking family"
+        main_hall_options(player, monster)
+    else
+        puts "invalid input"
+        main_hall_options(player, monster)
+    end
+end
+
+
+def dinning_hall(player, monster)
+    ## Clear screen
+    system "clear"
+
+    ## Print title & description
+    File.foreach("descriptions/ground_floor/2_kitchen.txt") { |line| puts line } # Print title and description
+
+    ## Checks for monster
+    if player.location == monster.location
+        puts "YES MONSTER"
+        fight_mode = true
+    else
+        puts "NO MONSTER"
+    end
+
+    ## Prints user input options for this room
+    File.foreach("descriptions/ground_floor/2_kitchen_options.txt") { |line| puts line } # Print title and description
+
+    ## Calls user input
+    dinning_hall_options(player, monster)
+
+end
+
+def dinning_hall_options(player, monster)
+
+    ## Gets users input and calls related method
+    user_input = gets.chomp.downcase
+    case user_input 
+    
+    ## Numbers call different room methods
+    when "1" 
+        main_hall(player, monster)
+
+    ## letters print extra descriptive text then repeat method
+    when "t"
+        puts "A tapestry depicting nobles hunting wolves from horseback hangs from the wall. This, you see, is privilege at its finest. The Dudley family lives well and lives large."  
+        dinning_hall_options(player, monster)        
+         
+    when "d"
+        puts "There is a large kitchen knife on the table. You take it!"
+        dinning_hall_options(player, monster)
+        
+    else
+        puts "invalid input"
+        dinning_hall_options(player, monster)
     end
 
 end
 
 
-
-room_display(current_room, player, monster)
-
+main_hall(player, monster)

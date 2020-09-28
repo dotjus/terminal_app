@@ -1,8 +1,7 @@
 require_relative "character.rb"
+require_relative "rooms.rb"
 
 require "io/console"
-
-
 
 
 def save_game
@@ -25,7 +24,8 @@ def continue_story
     print "press any key to continue..."                                                                                                    
     STDIN.getch                                                                                                              
     print "            \r" # extra space to overwrite in case next sentence is short    
-    system "clear"                                                                                                          
+    system "clear"        
+
 end 
 
 
@@ -92,13 +92,15 @@ loop do
         when "2"
             puts "You moved to the closset"
 
-
         when "3"
             puts "You moved to the sitting room"
+
         when "f"
             puts "The fire glows warmly"
+
         when "w"
             puts "You marvel at the craftsmanship of the ornate walls, but soon realize that that between the nymphs and satyrs lie serpents and skulls, all woven into the design. Maybe it's metaphorical."
+            
         when "wo"
             puts "A family of stony-faced aristocrats watch you with disinterest; the plaque on the frame reads, the Dudleys, in gold cursive lettering."   
         
