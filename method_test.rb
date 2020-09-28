@@ -1,13 +1,17 @@
 
 require_relative "character.rb"
 
+
 player = Hero.new("Justin", "Main Hall")
 monster = Monster.new("Wolf", "Sitting Room")
 
+
 fight_mode = false
+
 
 ############################## Main Hall ####################################
 def main_hall(player, monster)
+
     ## Clear screen
     system "clear" 
 
@@ -27,9 +31,12 @@ def main_hall(player, monster)
 
     ## Calls user input
     main_hall_options(player, monster)
+
 end
 
+## This is its own method so user input slection can be looped.
 def main_hall_options(player, monster)
+
     ## Gets users input and calls related method
     user_input = gets.chomp.downcase
     case user_input 
@@ -59,10 +66,15 @@ def main_hall_options(player, monster)
         puts "invalid input"
         main_hall_options(player, monster)
     end
+
 end
+################################################################################
+
+
 
 ############################## Dinning Hall ####################################
 def dinning_hall(player, monster)
+
     ## Clear screen
     system "clear"
 
@@ -85,6 +97,7 @@ def dinning_hall(player, monster)
 
 end
 
+## This is its own method so user input slection can be looped.
 def dinning_hall_options(player, monster)
 
     ## Gets users input and calls related method
@@ -110,9 +123,13 @@ def dinning_hall_options(player, monster)
     end
 
 end
+################################################################################
+
+
 
 ############################## Sitting Room ####################################
 def sitting_room(player, monster)
+    
     ## Clear screen
     system "clear"
 
@@ -135,6 +152,7 @@ def sitting_room(player, monster)
 
 end
 
+## This is its own method so user input slection can be looped.
 def sitting_room_options(player, monster)
 
     ## Gets users input and calls related method
@@ -156,6 +174,8 @@ def sitting_room_options(player, monster)
     end
 
 end
+################################################################################
 
 
+# Calls Main Hall
 main_hall(player, monster)
