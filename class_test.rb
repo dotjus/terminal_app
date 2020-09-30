@@ -10,7 +10,8 @@ $health = 5
 
 rooms = {
     main_hall: Room.new("Main Hall", "1_main_hall", "w", "1_main_hall"),
-    dinning_hall: Room.new("Dinning Hall", "2_dinning_hall", "t", "1")
+    dinning_hall: Room.new("Dinning Hall", "2_dinning_hall", "t", "1"),
+    sitting_room: Room.new("Sitting Room", "3_sitting_room", "t", "1")
 }
 
 current_room = rooms[:main_hall]

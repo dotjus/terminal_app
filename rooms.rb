@@ -16,7 +16,6 @@ class Room
         $room_names = []
 
         ###### Print Title and Description
-        puts @name
         File.foreach("descriptions/ground_floor/" + @description + ".txt") { |line| puts line } 
         @examine_options
         
@@ -42,8 +41,9 @@ class Room
             
             
         when $room_numbers[1].to_s
-            puts $room_names[1]
+            $room_name = $room_names[1]
             return $room_names[1]
+
         else
             puts "invalid input"
 
