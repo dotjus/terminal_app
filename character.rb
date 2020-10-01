@@ -5,14 +5,21 @@ class Character
         @health = 5
         @name = name
         @location = location
-        @inventory = {}
-        
+        @inventory = [{}]       
     end
+
+    def update_location(location)
+        @location = location
+        puts "The players location has been updated to #{location}." 
+    end
+
 
 end
 
 class Hero < Character
     
+
+
 end
 
 class Monster < Character
