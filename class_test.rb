@@ -3,12 +3,14 @@ require_relative "rooms.rb"
 require 'json'
 require "tty-prompt"
 
-prompt = TTY::Prompt.new
+$prompt = TTY::Prompt.new
 
 player = Hero.new("Justin", "Main Hall")
 monster = Monster.new("Wolf", "Sitting Room")
 
 $health = 5
+
+
 ## Move Option Hash
 
 rooms = {

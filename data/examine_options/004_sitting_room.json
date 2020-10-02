@@ -1,3 +1,5 @@
 [
-    { "description": "door you came through", "destination": "main_hall" }
+    { "name": "wolf statue", "examine": "Warm and inviting." },
+    { "name": "walls", "examine": "Ornately carved." },
+    { "name": "wooden plaque", "examine": "A stoic looking family is painted on it." }
 ]

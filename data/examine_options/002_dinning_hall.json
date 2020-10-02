@@ -1,4 +1,5 @@
 [
-    { "description": "door you came through", "destination": "main_hall" },
-    { "description": "door on opposite side of the room", "destination": "kitchen" }
+    { "name": "fire place", "examine": "Warm and inviting." },
+    { "name": "walls", "examine": "Ornately carved." },
+    { "name": "wooden plaque", "examine": "A stoic looking family is painted on it." }
 ]

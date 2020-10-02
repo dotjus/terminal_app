@@ -1,3 +1,5 @@
 [
-    { "description": "door you came through", "destination": "dinning_hall" }
+    { "name": "fire place", "description": "Warm and inviting." },
+    { "name": "walls", "description": "Ornately carved." },
+    { "name": "wooden plaque", "description": "A stoic looking family is painted on it." }
 ]

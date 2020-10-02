@@ -1,3 +1,18 @@
+require "tty-prompt"
+
+$prompt = TTY::Prompt.new
+
+
+def continue_story    
+         
+    puts " "                                                                                                      
+    print "press any key to continue..."                                                                                                    
+    STDIN.getch                                                                                                              
+    print "            \r" # extra space to overwrite in case next sentence is short    
+    system "clear"        
+
+end 
+
 class Room
     # attr_accessor :display_room
 
@@ -12,74 +27,97 @@ class Room
 
         ## Clear room data
         $room_numbers = []
+        $door_names = {}
         $room_names = []
 
         $examine_numbers = []
         $examine_names = []
+        $examine_descriptions = []
 
         ###### Print Title and Description
         File.foreach("data/descriptions/" + @name + ".txt") { |line| puts line } 
         # @examine_options
 
         # ###### Examine Options
-        # puts "Examine Options: "
-        # file = File.read("data/examine_options/" + @name + ".json")
-        # examine_array = JSON.parse(file)
-        # examine_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
-        #     print index.to_s +  ". " + hash["name"] + "   " 
-        #     $examine_numbers << index
-        #     $examine_names << hash["description"]
-        # end
+        file = File.read("data/examine_options/" + @name + ".json")
+        examine_array = JSON.parse(file)
+        examine_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
+            $examine_numbers << index
+            $examine_names << hash["name"]
+            $examine_descriptions << hash["examine"]
+        end
         
         ###### Movement Options
-        print "\n"
-        puts "Movement Options: "
         file = File.read("data/move_options/" + @name + ".json")
         move_array = JSON.parse(file)
         move_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
-            # index = index + 5
-            print index.to_s +  ". " + hash["description"] + "   " 
             $room_numbers << index
+            $door_names[hash["description"].to_sym] = index
             $room_names << hash["destination"]
-            # p $room_numbers
-            # p $room_names
         end
 
     end
 
     def user_action
-
-        user_input = gets.chomp.downcase
-        case user_input 
+        
+        room_options = {examine: 1, move: 2}
+        menu = $prompt.select("What would you like to do?", room_options)
+        
+        if menu == 1
             
-            ## Examine
-        # when $examine_numbers[0].to_s
-        #     puts "You examined option 0"
-
-        # when $examine_numbers[1].to_s
-        #     puts "You examined option 1"
+            $testy = $prompt.select("Examine Options;", $examine_names)
             
-        # when $examine_numbers[2].to_s
-        #     puts "You examined option 2"
+            case $testy
 
-            ## Movement
-        when $room_numbers[0].to_s
-            $room_name = $room_names[0]
-            return $room_name
+            when $examine_names[0]          ## will need to add -1 or make 0 return to previous menu
+                
+                puts $examine_descriptions[0]
+                continue_story 
 
-        when $room_numbers[1].to_s
-            $room_name = $room_names[1]
-            return $room_name
-            
-        when $room_numbers[2].to_s
-            $room_name = $room_names[2]
-            return $room_names[2]
+            when $examine_names[1]
+                puts $examine_descriptions[1]
+                continue_story 
+                
+            when $examine_names[2]
+                puts $examine_descriptions[2]
+                continue_story 
 
-        else
-            puts "invalid input"
+            else
+                puts "nothing to see here"
+                continue_story 
 
-        end    
+            end
+                
+        elsif menu == 2
+            $menu = $prompt.select("Move Options;", $door_names)
+
+            case $menu 
+
+            when $room_numbers[0]          ## will need to add -1 or make 0 return to previous menu
+                $room_name = $room_names[0]
+                return $room_name
+
+            when $room_numbers[1]
+                $room_name = $room_names[1]
+                return $room_name
+                
+            when $room_numbers[2]
+                $room_name = $room_names[2]
+                return $room_names[2]
+
+            else
+                puts "invalid input"
+
+            end
+
+        # elsif menu == 3
+        #     puts "Fight!"
+
+               
+        end
+
     end
+
 
 end
 

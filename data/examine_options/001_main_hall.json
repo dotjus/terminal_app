@@ -1,5 +1,5 @@
 [
-    { "name": "(f)ire place", "description": "Warm and inviting." },
-    { "name": "(w)alls", "description": "Ornately carved." },
-    { "name": "(wo)oden plaque", "description": "A stoic looking family is painted on it." }
+    { "name": "fire place", "examine": "Warm and inviting." },
+    { "name": "walls", "examine": "Ornately carved." },
+    { "name": "wooden plaque", "examine": "A stoic looking family is painted on it." }
 ]
