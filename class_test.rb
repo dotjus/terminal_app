@@ -8,11 +8,6 @@ $prompt = TTY::Prompt.new
 player = Hero.new("Justin", "Main Hall")
 monster = Monster.new("Wolf", "Sitting Room")
 
-$health = 5
-
-
-## Move Option Hash
-
 rooms = {
     main_hall: Room.new("001_main_hall"),
     dinning_hall: Room.new("002_dinning_hall"),
@@ -21,33 +16,27 @@ rooms = {
     kitchen: Room.new("005_kitchen")
 }
 
-current_room = rooms[:main_hall]
-current_room.display_room
-current_room.user_action
+## New game data variables
+$health = 5
+$room_name = "main_hall"
+$player_inventory = ["punch"]
+
+## Create New Player Profile
+$current_player_profile = gets.chomp
+FileUtils.mkdir "player_data/" + $current_player_profile
+FileUtils.copy_entry("default_data", "player_data/" + $current_player_profile, preserve = false, dereference_root = false, remove_destination = false)
 
 ## Main game loop
 while $health > 0
-# system("clear")
 
-## Set current room based on last door chosen
-current_room = rooms[$room_name.to_sym]
-## Update players location
-player.update_location(current_room)
+    ## Set current room based on last door chosen
+    current_room = rooms[$room_name.to_sym]
+    ## Update players location
+    player.update_location(current_room)
 
-current_room.display_room
-current_room.user_action
-
-
-# next_room_string = dinning_hall.display_room
-# p next_room_string
-# make method to get room from a room string
-# return an instance of Room class from next_room_string
-
-
-
-
-# $room_name.display_room
-# $room_name.user_action
-# puts "The current room is #{current_room} "
+    current_room.display_room
+    current_room.user_action
 
 end
+
+## End game conditions

@@ -1,0 +1,6 @@
+[
+    { "name": "fire place", "examine": "Warm and inviting.", "collectable": false  },
+    { "name": "walls", "examine": "Ornately carved.", "collectable": false   },
+    { "name": "wooden plaque", "examine": "A stoic looking family is painted on it.", "collectable": false   },
+{ "name": "dick", "examine": "A brass dick sits in the middle of the floor.", "collectable": true   }
+]

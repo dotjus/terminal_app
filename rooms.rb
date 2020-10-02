@@ -1,4 +1,5 @@
 require "tty-prompt"
+require 'fileutils'
 
 $prompt = TTY::Prompt.new
 
@@ -12,6 +13,22 @@ def continue_story
     system "clear"        
 
 end 
+
+def collect_item(x)
+
+    if $examine_collectable[x] == true
+        menu = $prompt.select("Do you want to take it?", %w(yes no))
+        if menu == "yes"
+            $player_inventory << $examine_names[x]
+            p $examine_names[x]
+            puts "Your current inventory is #{$player_inventory}."
+            
+        else
+        end
+    else
+    end
+
+end
 
 class Room
     # attr_accessor :display_room
@@ -33,22 +50,31 @@ class Room
         $examine_numbers = []
         $examine_names = []
         $examine_descriptions = []
+        $examine_collectable = []
 
         ###### Print Title and Description
-        File.foreach("data/descriptions/" + @name + ".txt") { |line| puts line } 
+        File.foreach("player_data/" + $current_player_profile + "/descriptions/" + @name + ".txt") { |line| puts line } 
         # @examine_options
 
         # ###### Examine Options
-        file = File.read("data/examine_options/" + @name + ".json")
+        file = File.read("player_data/" + $current_player_profile + "/examine_options/" + @name + ".json")
         examine_array = JSON.parse(file)
         examine_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
-            $examine_numbers << index
-            $examine_names << hash["name"]
-            $examine_descriptions << hash["examine"]
+            
+            $player_inventory.each do |item|
+                
+                $examine_numbers << index
+                $examine_names << hash["name"]
+                $examine_descriptions << hash["examine"]
+                $examine_collectable << hash["collectable"]
+                
+
+                
+            end
         end
         
         ###### Movement Options
-        file = File.read("data/move_options/" + @name + ".json")
+        file = File.read("player_data/" + $current_player_profile + "/move_options/" + @name + ".json")
         move_array = JSON.parse(file)
         move_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
             $room_numbers << index
@@ -72,14 +98,22 @@ class Room
             when $examine_names[0]          ## will need to add -1 or make 0 return to previous menu
                 
                 puts $examine_descriptions[0]
+                collect_item(0)
                 continue_story 
 
             when $examine_names[1]
                 puts $examine_descriptions[1]
+                collect_item(1)
                 continue_story 
                 
             when $examine_names[2]
                 puts $examine_descriptions[2]
+                collect_item(2)
+                continue_story 
+
+            when $examine_names[3]
+                puts $examine_descriptions[3]
+                collect_item(3)
                 continue_story 
 
             else
