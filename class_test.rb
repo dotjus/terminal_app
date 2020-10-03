@@ -19,7 +19,7 @@ rooms = {
 ## New game data variables
 $health = 5
 $room_name = "main_hall"
-$player_inventory = ["punch"]
+$player_inventory = [""]
 
 ## Create New Player Profile
 $current_player_profile = gets.chomp
@@ -36,6 +36,7 @@ while $health > 0
 
     current_room.display_room
     current_room.user_action
+    current_room.collect_item($x)
 
 end
 

@@ -14,21 +14,7 @@ def continue_story
 
 end 
 
-def collect_item(x)
 
-    if $examine_collectable[x] == true
-        menu = $prompt.select("Do you want to take it?", %w(yes no))
-        if menu == "yes"
-            $player_inventory << $examine_names[x]
-            p $examine_names[x]
-            puts "Your current inventory is #{$player_inventory}."
-            
-        else
-        end
-    else
-    end
-
-end
 
 class Room
     # attr_accessor :display_room
@@ -36,6 +22,35 @@ class Room
     def initialize(name)
         @name = name
 
+    end
+
+    def collect_item(x)
+
+        if $examine_collectable[x] == true
+            menu = $prompt.select("Do you want to take it?", %w(yes no))
+            if menu == "yes"
+                # $player_inventory << $examine_names[x]
+    
+                ## Read file in
+                file = File.read("player_data/" + $current_player_profile + "/examine_options/" + @name + ".json")
+                parsed = JSON.parse(file)
+                ## Add picked to players inventory
+                $player_inventory << parsed[x]["name"]
+                ## Delete picked 
+                parsed.delete_at(x)
+                ## Write elements - picked back into file
+                File.open("player_data/" + $current_player_profile + "/examine_options/" + @name + ".json","w") do |f|
+                    f.write(parsed.to_json)
+                    end
+    
+                p $examine_names[x]
+                puts "Your current inventory is #{$player_inventory}."
+                return 5
+            else
+            end
+        else
+        end
+    
     end
 
     def display_room
@@ -59,6 +74,7 @@ class Room
         # ###### Examine Options
         file = File.read("player_data/" + $current_player_profile + "/examine_options/" + @name + ".json")
         examine_array = JSON.parse(file)
+        
         examine_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
             
             $player_inventory.each do |item|
@@ -91,14 +107,13 @@ class Room
         
         if menu == 1
             
-            $testy = $prompt.select("Examine Options;", $examine_names)
+            testy = $prompt.select("Examine Options;", $examine_names)
             
-            case $testy
+            case testy
 
             when $examine_names[0]          ## will need to add -1 or make 0 return to previous menu
-                
                 puts $examine_descriptions[0]
-                collect_item(0)
+                # collect_item(0)
                 continue_story 
 
             when $examine_names[1]
@@ -113,9 +128,11 @@ class Room
 
             when $examine_names[3]
                 puts $examine_descriptions[3]
-                collect_item(3)
-                continue_story 
-
+                # collect_item(3)
+                $x = 3
+                p $x
+                return $x
+                
             else
                 puts "nothing to see here"
                 continue_story 

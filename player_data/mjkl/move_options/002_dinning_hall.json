@@ -1,0 +1,4 @@
+[
+    { "description": "door you came through", "destination": "main_hall" },
+    { "description": "door on opposite side of the room", "destination": "kitchen" }
+]

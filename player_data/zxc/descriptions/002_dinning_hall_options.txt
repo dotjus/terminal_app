@@ -1,0 +1,2 @@
+Move options; (1). The door you just came through
+Examine options; (t)apstry, (d)inning table
