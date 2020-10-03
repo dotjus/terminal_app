@@ -15,34 +15,34 @@ def continue_story
 end 
 
 
-# def collect_item(current_room, item_no)
+def collect_item(examine_num)
 
-#     if $examine_collectable[examine_num] == true
-#         menu = $prompt.select("Do you want to take it?", %w(yes no))
-#         if menu == "yes"
-#             # $player_inventory << $examine_names[x]
+    if $examine_collectable[examine_num] == true
+        menu = $prompt.select("Do you want to take it?", %w(yes no))
+        if menu == "yes"
+            # $player_inventory << $examine_names[x]
 
-#             ## Read file in
-#             file = File.read("player_data/" + $current_player_profile + "/examine_options/" + current_room + ".json")
-#             parsed = JSON.parse(file)
-#             ## Add picked to players inventory
-#             $player_inventory << parsed[item_no]["name"]
-#             ## Delete picked 
-#             parsed.delete_at(examine_num)
-#             ## Write elements - picked back into file
-#             File.open("player_data/" + $current_player_profile + "/examine_options/" + current_room + ".json","w") do |f|
-#                 f.write(parsed.to_json)
-#                 end
+            ## Read file in
+            file = File.read("player_data/" + $current_player_profile + "/examine_options/" + $current_room + ".json")
+            parsed = JSON.parse(file)
+            ## Add picked to players inventory
+            $player_inventory << parsed[examine_num]["name"]
+            ## Delete picked 
+            parsed.delete_at(examine_num)
+            ## Write elements - picked back into file
+            File.open("player_data/" + $current_player_profile + "/examine_options/" + $current_room + ".json","w") do |f|
+                f.write(parsed.to_json)
+                end
 
-#             p $examine_names[examine_num]
-#             puts "Your current inventory is #{$player_inventory}."
-#             return 5
-#         else
-#         end
-#     else
-#     end
+            p $examine_names[examine_num]
+            puts "Your current inventory is #{$player_inventory}."
+            
+        else
+        end
+    else
+    end
 
-# end
+end
 
 def display_room
     ## Clear screen
@@ -62,20 +62,17 @@ def display_room
     File.foreach("player_data/" + $current_player_profile + "/descriptions/" + $current_room + ".txt") { |line| puts line } 
     # @examine_options
 
+    
+    
     ###### Examine Options
     file = File.read("player_data/" + $current_player_profile + "/examine_options/" + $current_room + ".json")
     examine_array = JSON.parse(file)
     
     examine_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
-        
-        $player_inventory.each do |item|
-            
-            $examine_numbers << index
-            $examine_names << hash["name"]
-            $examine_descriptions << hash["examine"]
-            $examine_collectable << hash["collectable"]
-
-        end
+        $examine_numbers << index
+        $examine_names << hash["name"]
+        $examine_descriptions << hash["examine"]
+        $examine_collectable << hash["collectable"]
     end
     
     ###### Movement Options
@@ -87,38 +84,35 @@ def display_room
         $room_names << hash["destination"]
     end
     
-
     ###### User Options
     room_options = {examine: 1, move: 2}
     menu = $prompt.select("What would you like to do?", room_options)
     
     if menu == 1
         
-        testy = $prompt.select("Examine Options;", $examine_names)
+        examaine_menu = $prompt.select("Examine Options;", $examine_names)
         
-        case testy
+        case examaine_menu
 
         when $examine_names[0]          ## will need to add -1 or make 0 return to previous menu
             puts $examine_descriptions[0]
-            # collect_item(0)
+            collect_item(0)
             continue_story 
 
         when $examine_names[1]
             puts $examine_descriptions[1]
-            # collect_item(1)
+            collect_item(1)
             continue_story 
             
         when $examine_names[2]
             puts $examine_descriptions[2]
-            # collect_item(2)
+            collect_item(2)
             continue_story 
 
         when $examine_names[3]
             puts $examine_descriptions[3]
-            # collect_item(3)
-            $x = 3
-            p $x
-            return $x
+            collect_item(3)
+            continue_story 
             
         else
             puts "nothing to see here"
@@ -127,9 +121,9 @@ def display_room
         end
             
     elsif menu == 2
-        $menu = $prompt.select("Move Options;", $door_names)  
+        move_menu = $prompt.select("Move Options;", $door_names)  
 
-        case $menu 
+        case move_menu 
 
         when $room_numbers[0]          ## will need to add -1 or make 0 return to previous menu
             $room_name = $room_names[0]

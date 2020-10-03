@@ -1,4 +1,0 @@
-[
-    { "description": "door you came through", "destination": "001_main_hall" },
-    { "description": "door on opposite side of the room", "destination": "005_kitchen" }
-]
