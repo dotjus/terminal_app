@@ -3,6 +3,18 @@ require 'fileutils'
 
 $prompt = TTY::Prompt.new
 
+
+def pause_story
+
+    puts " "                                                                                                      
+    print "press any key to continue..."                                                                                                    
+    STDIN.getch                                                                                                              
+    print "            \r" # extra space to overwrite in case next sentence is short    
+    system "clear"    
+
+
+end
+
 def continue_story    
          
     puts " "                                                                                                      
@@ -14,6 +26,31 @@ def continue_story
 
 end 
 
+
+def locked_door_check(door_index)
+
+    if $door_locked[door_index] == true
+
+        puts "The door is locked."
+        if $player_inventory.include?($key_needed[door_index])  # will need to change this to the variable of door_nums key_needed hash.
+
+            puts "You try the #{$key_needed[door_index]} and it works!"
+            pause_story
+            $room_name = $room_names[door_index]
+            return $room_names[door_index]
+
+        else
+
+            puts "you do not have the key"
+           continue_story
+
+        end
+
+    else
+        $room_name = $room_names[door_index]
+    end
+
+end
 
 def collect_item(examine_num)
 
@@ -34,7 +71,6 @@ def collect_item(examine_num)
                 f.write(parsed.to_json)
                 end
 
-            p $examine_names[examine_num]
             puts "Your current inventory is #{$player_inventory}."
             
         else
@@ -52,6 +88,8 @@ def display_room
     $room_numbers = []
     $door_names = {}
     $room_names = []
+    $door_locked = []
+    $key_needed = []
 
     $examine_numbers = []
     $examine_names = []
@@ -63,7 +101,6 @@ def display_room
     # @examine_options
 
     
-    
     ###### Examine Options
     file = File.read("player_data/" + $current_player_profile + "/examine_options/" + $current_room + ".json")
     examine_array = JSON.parse(file)
@@ -74,16 +111,18 @@ def display_room
         $examine_descriptions << hash["examine"]
         $examine_collectable << hash["collectable"]
     end
-    
-    ###### Movement Options
+      
+  ###### Movement Options
     file = File.read("player_data/" + $current_player_profile + "/move_options/" + $current_room + ".json")
     move_array = JSON.parse(file)
     move_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
         $room_numbers << index
         $door_names[hash["description"].to_sym] = index
         $room_names << hash["destination"]
+        $door_locked << hash["locked"]
+        $key_needed << hash["key_needed"]
     end
-    
+
     ###### User Options
     room_options = {examine: 1, move: 2}
     menu = $prompt.select("What would you like to do?", room_options)
@@ -126,16 +165,22 @@ def display_room
         case move_menu 
 
         when $room_numbers[0]          ## will need to add -1 or make 0 return to previous menu
-            $room_name = $room_names[0]
-            return $room_name
+            locked_door_check(0)
+            door_index = 0
+            locked_door_check(door_index)
 
         when $room_numbers[1]
-            $room_name = $room_names[1]
-            return $room_name
+            locked_door_check(1)
+            door_index = 1
+            locked_door_check(door_index)
             
         when $room_numbers[2]
-            $room_name = $room_names[2]
-            return $room_names[2]
+            door_index = 2
+            locked_door_check(door_index)
+
+        when $room_numbers[3]
+            door_index = 3
+            locked_door_check(door_index)
 
         else
             puts "invalid input"

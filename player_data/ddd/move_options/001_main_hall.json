@@ -1,5 +1,0 @@
-[
-    { "description": "left door", "destination": "002_dinning_hall" },
-    { "description": "right door", "destination": "003_closet" },
-    { "description": "second right door", "destination": "004_sitting_room" }
-]

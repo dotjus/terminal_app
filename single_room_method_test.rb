@@ -20,7 +20,6 @@ FileUtils.copy_entry("default_data", "player_data/" + $current_player_profile, p
 
 ## Main game loop
 while $health > 0
-
     
     display_room
     $current_room = $room_name
