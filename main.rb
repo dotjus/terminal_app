@@ -2,8 +2,10 @@ require_relative "rooms.rb"
 require 'json'
 require "tty-prompt"
 require "io/console"
+require "tty-font"
 
 $prompt = TTY::Prompt.new
+heading_font = TTY::Font.new(:straight)
 
 def continue_story(disp_room)    
          
@@ -24,6 +26,7 @@ end
 loop do
 
     system "clear" 
+    puts heading_font.write("THE CURIOUS CASE OF DUDLEY MANOR")
     puts "THE CURIOUS CASE OF DUDLEY MANOR"
     puts " "
     puts "To start a new game enter:       new" 
