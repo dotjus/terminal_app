@@ -10,36 +10,41 @@ def save_game
 
 end
 
+
 def load_game
  
 end
 
+
 def help_game
     puts "You selected load game."
 end
-                                                                                       
+       
 
-def pause_story
+# def pause_story
 
-    puts " "                                                                                                      
-    print "press any key to continue..."                                                                                                    
-    STDIN.getch                                                                                                              
-    print "            \r" # extra space to overwrite in case next sentence is short    
-    system "clear"    
+#     puts " "                                                                                                      
+#     print "press any key to continue..."                                                                                                    
+#     STDIN.getch                                                                                                              
+#     print "            \r" # extra space to overwrite in case next sentence is short    
+#     system "clear"    
 
-end
+# end
 
-def continue_story    
+
+def continue_story(disp_room)    
          
     puts " "                                                                                                      
     print "press any key to continue..."                                                                                                    
     STDIN.getch                                                                                                              
     print "            \r" # extra space to overwrite in case next sentence is short    
     system "clear" 
-    display_room     
+    if disp_room == true
+        display_room   
+    else
+    end  
 
 end 
-
 
 
 ## Main Program Loop
@@ -76,22 +81,20 @@ loop do
         ## Story Introduction
         File.foreach("default_data/introduction.txt") { |line| puts line }
     
-        pause_story
+        continue_story(false)
     
         File.foreach("default_data/front_gate.txt") { |line| puts line }
     
-        pause_story
+        continue_story(false)
     
  
         ## Game loop
-        while $health > 0
+        while $health > 0 and $current_room != "006_GAME_COMPLETE"
             
             display_room
             $current_room = $room_name
 
         end
-
-        ## End game conditions
 
     when "save"
         save_game

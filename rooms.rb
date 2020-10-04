@@ -14,14 +14,14 @@ def locked_door_check(door_index)
         if $player_inventory.include?($key_needed[door_index])  # will need to change this to the variable of door_nums key_needed hash.
 
             puts "You try the #{$key_needed[door_index]} and it works!"
-            pause_story
+            continue_story(false)
             $room_name = $room_names[door_index]
             return $room_names[door_index]
 
         else
 
             puts "you do not have the key"
-           continue_story
+           continue_story(true)
 
         end
 
@@ -115,26 +115,26 @@ def display_room
         when $examine_names[0]          ## will need to add -1 or make 0 return to previous menu
             puts $examine_descriptions[0]
             collect_item(0)
-            continue_story 
+            continue_story(true) 
 
         when $examine_names[1]
             puts $examine_descriptions[1]
             collect_item(1)
-            continue_story 
+            continue_story(true) 
             
         when $examine_names[2]
             puts $examine_descriptions[2]
             collect_item(2)
-            continue_story 
+            continue_story(true) 
 
         when $examine_names[3]
             puts $examine_descriptions[3]
             collect_item(3)
-            continue_story 
+            continue_story(true) 
             
         else
             puts "nothing to see here"
-            continue_story 
+            continue_story(true) 
 
         end
             
