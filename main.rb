@@ -4,6 +4,7 @@ require "tty-prompt"
 require "io/console"
 require "tty-font"
 require "pastel"
+require "ruby2d"
 
 $prompt = TTY::Prompt.new
 heading_font = TTY::Font.new(:straight)
