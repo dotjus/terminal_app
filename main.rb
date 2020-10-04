@@ -3,9 +3,11 @@ require 'json'
 require "tty-prompt"
 require "io/console"
 require "tty-font"
+require "pastel"
 
 $prompt = TTY::Prompt.new
 heading_font = TTY::Font.new(:straight)
+pastel = Pastel.new
 
 def continue_story(disp_room)    
          
@@ -27,7 +29,7 @@ loop do
 
     system "clear" 
     puts heading_font.write("THE CURIOUS CASE OF DUDLEY MANOR")
-    puts "THE CURIOUS CASE OF DUDLEY MANOR"
+    puts pastel.red("THE CURIOUS CASE OF DUDLEY MANOR")
     puts " "
     puts "To start a new game enter:       new" 
     puts "To save your current game enter: save"
