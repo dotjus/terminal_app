@@ -5,21 +5,6 @@ require "io/console"
 
 $prompt = TTY::Prompt.new
 
-def save_game
-
-end
-
-
-def load_game
- 
-end
-
-
-def help_game
-    puts "You selected load game."
-end
-
-
 def continue_story(disp_room)    
          
     puts " "                                                                                                      
@@ -48,7 +33,10 @@ loop do
 
     menu_selection = gets.chomp.downcase
     case menu_selection 
+
     when "new"
+
+    begin
 
         ## Creates New Player Profile
         puts "Please enter your player name:"
@@ -81,18 +69,41 @@ loop do
             $current_room = $room_name
 
         end
+    
+    rescue Errno::EEXIST
+        puts "That user name has already been taken. Please choose another."
+
+        continue_story(false) 
+
+    end
+        
 
     when "save"
-        save_game
+
+        puts "export hp, current room and inventory"
+
     when "load"
-        load_game
+
+        puts "list usernames"
+        puts "open directory with that player name"
+        puts "Set current_player var"
+        puts "Set load data into other variables"
+
     when "help"
-        help_game
+
+        puts "help file"
+
+        continue_story(false)
+
     when "exit"
+
         exit
+
     else 
-        puts "invalid input"
-        
+
+        puts "Invalid input, please enter one of the listed options."
+        continue_story(false) 
+
     end
 
     #Start the application by calling main_menu method
