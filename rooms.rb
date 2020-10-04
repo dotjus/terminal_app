@@ -4,27 +4,6 @@ require 'fileutils'
 $prompt = TTY::Prompt.new
 
 
-def pause_story
-
-    puts " "                                                                                                      
-    print "press any key to continue..."                                                                                                    
-    STDIN.getch                                                                                                              
-    print "            \r" # extra space to overwrite in case next sentence is short    
-    system "clear"    
-
-
-end
-
-def continue_story    
-         
-    puts " "                                                                                                      
-    print "press any key to continue..."                                                                                                    
-    STDIN.getch                                                                                                              
-    print "            \r" # extra space to overwrite in case next sentence is short    
-    system "clear" 
-    display_room     
-
-end 
 
 
 def locked_door_check(door_index)

@@ -1,6 +1,0 @@
-[
-    { "description": "left door", "destination": "002_dinning_hall", "locked": false  },
-    { "description": "right door", "destination": "003_closet", "locked": false  },
-    { "description": "second right door", "destination": "004_sitting_room", "locked": false },
-    { "description": "large double doors atop stairs", "destination": "004_sitting_room", "locked": true }
-]
