@@ -1,4 +1,3 @@
-require_relative "character.rb"
 require_relative "rooms.rb"
 require 'json'
 require "tty-prompt"
@@ -19,17 +18,6 @@ end
 def help_game
     puts "You selected load game."
 end
-       
-
-# def pause_story
-
-#     puts " "                                                                                                      
-#     print "press any key to continue..."                                                                                                    
-#     STDIN.getch                                                                                                              
-#     print "            \r" # extra space to overwrite in case next sentence is short    
-#     system "clear"    
-
-# end
 
 
 def continue_story(disp_room)    
@@ -70,8 +58,6 @@ loop do
 
 
         ## Set player data
-        player = Hero.new("Justin", "Main Hall")
-        monster = Monster.new("Wolf", "Sitting Room")
         $health = 5
         $current_room = "001_main_hall"
         $player_inventory = ["torch"]

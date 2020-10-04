@@ -3,9 +3,6 @@ require 'fileutils'
 
 $prompt = TTY::Prompt.new
 
-
-
-
 def locked_door_check(door_index)
 
     if $door_locked[door_index] == true
@@ -36,7 +33,6 @@ def collect_item(examine_num)
     if $examine_collectable[examine_num] == true
         menu = $prompt.select("Do you want to take it?", %w(yes no))
         if menu == "yes"
-            # $player_inventory << $examine_names[x]
 
             ## Read file in
             file = File.read("player_data/" + $current_player_profile + "/examine_options/" + $current_room + ".json")
@@ -91,7 +87,7 @@ def display_room
         $examine_collectable << hash["collectable"]
     end
       
-  ###### Movement Options
+   ##### Movement Options
     file = File.read("player_data/" + $current_player_profile + "/move_options/" + $current_room + ".json")
     move_array = JSON.parse(file)
     move_array.each_with_index do |hash, index|  # could print just the keys(door names) then have the values to change current room 
@@ -166,9 +162,6 @@ def display_room
 
         end
 
-    # elsif menu == 3
-    #     puts "Fight!"
-    
     end
 
 end
