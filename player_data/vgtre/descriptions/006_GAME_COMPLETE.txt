@@ -1,0 +1,2 @@
+GAME COMPLETE
+You have reached the end of this game demo. Many more levels were planned but where sadly I ran out of time to add them. I will however be updating the git hub repository with the full version of this interactive story telling experience within the week.

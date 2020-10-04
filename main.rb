@@ -5,10 +5,24 @@ require "io/console"
 require "tty-font"
 require "pastel"
 require "ruby2d"
+require 'optparse'
 
 $prompt = TTY::Prompt.new
 heading_font = TTY::Font.new(:straight)
 pastel = Pastel.new
+
+@options = {} 
+
+op = OptionParser.new do |opts|
+    opts.on("-s", "--skip", "Skips introductory text after creating a new player profile") do
+        @options[:skip_intro] = true
+    end
+    opts.on("-c", "--cheat", "Adds a grenade launcher to inventory.") do
+        @options[:cheat] = "grenade launcher"
+    end
+end
+
+op.parse!
 
 def continue_story(disp_room)    
          
@@ -55,19 +69,22 @@ loop do
         $health = 5
         $current_room = "001_main_hall"
         $player_inventory = ["torch"]
+        $player_inventory << @options[:cheat]
 
         system "clear"
 
-        ## Story Introduction
-        File.foreach("default_data/introduction.txt") { |line| puts line }
+        if @options[:skip_intro] == nil
+            ## Story Introduction
+            File.foreach("default_data/introduction.txt") { |line| puts line }
+        
+            continue_story(false)
+        
+            File.foreach("default_data/front_gate.txt") { |line| puts line }
+        
+            continue_story(false)
+        else
+        end
     
-        continue_story(false)
-    
-        File.foreach("default_data/front_gate.txt") { |line| puts line }
-    
-        continue_story(false)
-    
- 
         ## Game loop
         while $health > 0 and $current_room != "006_GAME_COMPLETE"
             
